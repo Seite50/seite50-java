@@ -29,4 +29,12 @@ public class AuthorsService {
 		return authors.get(authorId);
 	}
 
+	public void changeAuthor(Author author) {
+		authors.put(author.getId(), author);
+	}
+
+	public void deleteAuthor(String id) {
+		authors.remove(id);
+	}
+
 }

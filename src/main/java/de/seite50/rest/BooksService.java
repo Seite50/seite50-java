@@ -24,4 +24,16 @@ public class BooksService {
 		books.put(id.toString(), book);
 		return id.toString();
 	}
+
+	public Book getBook(String id) {
+		return books.get(id);
+	}
+
+	public void setBook(Book book) {
+		books.put(book.getId(), book);
+	}
+
+	public void deleteBook(String id) {
+		books.remove(id);
+	}
 }
