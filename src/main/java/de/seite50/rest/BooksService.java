@@ -20,6 +20,7 @@ public class BooksService {
 	
 	public String addBook(Book book) {
 		UUID id = UUID.randomUUID();
+		book.setId(id.toString());
 		books.put(id.toString(), book);
 		return id.toString();
 	}
