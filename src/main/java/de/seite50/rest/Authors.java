@@ -17,15 +17,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import de.seite50.configuration.Defaults;
 import de.seite50.models.Author;
 
 @Path("authors")
 @ApplicationScoped
 public class Authors {
-
-	@Inject
-	private Defaults defaults;
 	
 	@Inject
 	private AuthorsService service;

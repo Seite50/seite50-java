@@ -1,10 +1,17 @@
 package de.seite50.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Author {
 	
 	private String surname;
 	private String givenname;
+	
+	@Id
 	private String id;
+	
 	public String getSurname() {
 		return surname;
 	}

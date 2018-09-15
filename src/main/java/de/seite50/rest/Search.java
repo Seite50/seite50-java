@@ -22,8 +22,8 @@ public class Search {
 	
 	@GET
 	@Path("{searchTerm}")
-	public Map<String, List<Object>> search(@PathParam("searchTerm") String term) {
-		Map<String, List<Object>> result = new HashMap<>();
+	public Map<String, List<?>> search(@PathParam("searchTerm") String term) {
+		Map<String, List<?>> result = new HashMap<>();
 		result.put("books", booksService.search(term));
 		result.put("authors", authorsService.search(term));
 		return result;
