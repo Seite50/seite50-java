@@ -8,6 +8,7 @@ public class Book {
 	private String name;
 	private String id;
 	private List<Author> authors = Collections.emptyList();
+	private String isbn;
 	
 	public String getName() {
 		return name;
@@ -31,4 +32,14 @@ public class Book {
 	public void setAuthors(List<Author> authors) {
 		this.authors = authors;
 	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+	
+	
 }
