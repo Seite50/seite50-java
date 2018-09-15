@@ -33,6 +33,7 @@ public class App extends Application {
 
 		Book book = new Book();
 		book.setName("Zahltag");
+		book.setIsbn("9783257242683");
 		book.setAuthors(Arrays.asList(authorsService.getAuthor(authorId)));
 		booksService.addBook(book);
 	}
