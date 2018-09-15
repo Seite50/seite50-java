@@ -1,6 +1,7 @@
 package de.seite50.rest;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,13 +13,13 @@ import de.seite50.models.Author;
 
 @ApplicationScoped
 public class AuthorsService {
-	
+
 	ConcurrentHashMap<String, Author> authors = new ConcurrentHashMap<>();
-	
+
 	public List<Author> getAuthors() {
 		return new ArrayList<>(authors.values());
 	}
-	
+
 	public String addAuthor(Author author) {
 		String id = UUID.randomUUID().toString();
 		author.setId(id);
@@ -39,7 +40,14 @@ public class AuthorsService {
 	}
 
 	public List<Object> search(String term) {
-		return authors.values().stream().filter(a -> a.getGivenname().indexOf(term) >= 0 || a.getSurname().indexOf(term) >= 0).collect(Collectors.toList());
+		if (term == null) {
+			return Collections.emptyList();
+		}
+		String lcTerm = term.toLowerCase();
+		return authors.values().stream()
+				.filter(a -> (a.getGivenname() != null && a.getGivenname().toLowerCase().indexOf(lcTerm) >= 0)
+						|| (a.getSurname() != null && a.getSurname().toLowerCase().indexOf(lcTerm) >= 0)F)
+				.collect(Collectors.toList());
 	}
 
 }
