@@ -46,7 +46,7 @@ public class AuthorsService {
 		String lcTerm = term.toLowerCase();
 		return authors.values().stream()
 				.filter(a -> (a.getGivenname() != null && a.getGivenname().toLowerCase().indexOf(lcTerm) >= 0)
-						|| (a.getSurname() != null && a.getSurname().toLowerCase().indexOf(lcTerm) >= 0)F)
+						|| (a.getSurname() != null && a.getSurname().toLowerCase().indexOf(lcTerm) >= 0))
 				.collect(Collectors.toList());
 	}
 
