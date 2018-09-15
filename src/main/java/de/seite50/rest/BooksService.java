@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -35,5 +36,9 @@ public class BooksService {
 
 	public void deleteBook(String id) {
 		books.remove(id);
+	}
+
+	public List<Object> search(String term) {
+		return books.values().stream().filter(b -> (b.getName() != null && b.getName().indexOf(term) >= 0) || (b.getIsbn() != null  && b.getIsbn().indexOf(term) >= 0)).collect(Collectors.toList());
 	}
 }
