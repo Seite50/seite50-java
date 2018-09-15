@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -38,5 +39,12 @@ public class Authors {
 	public Response addAuthor(Author author, @Context UriInfo location) {
 		service.addAuthor(author);
 		return Response.created(location.getAbsolutePath()).build();
+	}
+	
+	@GET
+	@Path("{id}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Author getAuthor(@PathParam("id") String id) {
+		return service.getAuthor(id);
 	}
 }

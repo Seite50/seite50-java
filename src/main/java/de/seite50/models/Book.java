@@ -1,9 +1,13 @@
 package de.seite50.models;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Book {
 
 	private String name;
 	private String id;
+	private List<Author> authors = Collections.emptyList();
 	
 	public String getName() {
 		return name;
@@ -18,5 +22,13 @@ public class Book {
 	}
 	public String getId() {
 		return id;
+	}
+	
+	public List<Author> getAuthors() {
+		return authors;
+	}
+	
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
 	}
 }

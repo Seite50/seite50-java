@@ -25,4 +25,8 @@ public class AuthorsService {
 		return id;
 	}
 
+	public Author getAuthor(String authorId) {
+		return authors.get(authorId);
+	}
+
 }
