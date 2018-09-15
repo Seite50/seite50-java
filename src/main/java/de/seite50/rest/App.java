@@ -15,23 +15,22 @@ import de.seite50.models.Book;
 
 @Dependent
 @ApplicationPath("api")
-public class App extends Application{
-	
+public class App extends Application {
+
 	@Inject
 	BooksService booksService;
-	
+
 	@Inject
 	AuthorsService authorsService;
-	
+
 	@PostConstruct
 	public void startUp() {
-		
-		
+
 		Author author = new Author();
 		author.setGivenname("Petros");
 		author.setSurname("Markaris");
 		String authorId = authorsService.addAuthor(author);
-		
+
 		Book book = new Book();
 		book.setName("Zahltag");
 		book.setAuthors(Arrays.asList(authorsService.getAuthor(authorId)));
