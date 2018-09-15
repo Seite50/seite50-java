@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <groupId>de.seite50</groupId>
+    <artifactId>rest-api</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>REST</name>
+
+    <properties>
+        <meecrowave.version>1.2.3</meecrowave.version>
+
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <slf4j.version>1.7.25</slf4j.version>
+        <log4j-api.version>2.11.0</log4j-api.version>
+
+        <jacoco.version>0.8.1</jacoco.version>
+        <pitest.version>1.4.0</pitest.version>
+        <pitest-junit5-plugin.version>0.5</pitest-junit5-plugin.version>
+
+        <junit4.version>4.12</junit4.version>
+        <junit.jupiter.version>5.1.1</junit.jupiter.version>
+        <junit.platform.version>1.1.1</junit.platform.version>
+
+    </properties>
+
+
+    <dependencies>
+        <!-- this package contains the javax APIs for CDI, JAX-RS, JSONP, JSONB and Servlet4 -->
+        <dependency>
+            <groupId>org.apache.meecrowave</groupId>
+            <artifactId>meecrowave-specs-api</artifactId>
+            <version>${meecrowave.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.meecrowave</groupId>
+            <artifactId>meecrowave-core</artifactId>
+            <version>${meecrowave.version}</version>
+        </dependency>
+
+        <!-- our test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit4.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.meecrowave</groupId>
+            <artifactId>meecrowave-junit</artifactId>
+            <version>${meecrowave.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!--
+                    For starting meecrowave via Maven. Just run
+                    $> mvn clean install meecrowave:run
+                -->
+                <groupId>org.apache.meecrowave</groupId>
+                <artifactId>meecrowave-maven-plugin</artifactId>
+                <version>${meecrowave.version}</version>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
