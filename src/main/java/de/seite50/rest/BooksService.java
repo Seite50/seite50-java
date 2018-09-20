@@ -1,52 +1,57 @@
 package de.seite50.rest;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import org.apache.meecrowave.jpa.api.Jpa;
+import org.apache.meecrowave.jpa.api.Unit;
 
 import de.seite50.models.Book;
 
 @ApplicationScoped
 public class BooksService {
 
-	ConcurrentHashMap<String, Book> books = new ConcurrentHashMap<>();
+	@Inject
+	@Unit(name = "seite50")
+	EntityManager em;
 
 	public List<Book> getBooks() {
-		return new ArrayList<>(books.values());
+		return em.createQuery("select b from Book b left join fetch b.authors", Book.class).getResultList();
 	}
 
+	@Jpa(transactional = true)
 	public String addBook(Book book) {
-		UUID id = UUID.randomUUID();
-		book.setId(id.toString());
-		books.put(id.toString(), book);
-		return id.toString();
+		em.merge(book);
+		return book.getId();
 	}
 
 	public Book getBook(String id) {
-		return books.get(id);
+		return em.find(Book.class, id);
 	}
 
+	@Jpa(transactional = true)
 	public void setBook(Book book) {
-		books.put(book.getId(), book);
+		em.merge(book);
 	}
 
+	@Jpa(transactional = true)
 	public void deleteBook(String id) {
-		books.remove(id);
+		Book book = em.find(Book.class, id);
+		em.remove(book);
 	}
 
-	public List<Object> search(String term) {
+	public List<Book> search(String term) {
 		if (term == null) {
 			return Collections.emptyList();
 		}
-		String lcTerm = term.toLowerCase();
-		return books.values().stream()
-				.filter(b -> (b.getName() != null && b.getName().toLowerCase().indexOf(lcTerm) >= 0)
-						|| (b.getIsbn() != null && b.getIsbn().toLowerCase().indexOf(lcTerm) >= 0))
-				.collect(Collectors.toList());
+		TypedQuery<Book> query = em.createQuery("select b from Book b where lower(b.name) like :term or lower(b.isbn) like :term", Book.class);
+		query.setParameter("term", "%" + term.toLowerCase() + "%");
+		return query.getResultList();
 	}
 }

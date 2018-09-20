@@ -1,8 +1,6 @@
 package de.seite50.rest;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
@@ -26,16 +24,16 @@ public class App extends Application {
 	@PostConstruct
 	public void startUp() {
 
-		Author author = new Author();
-		author.setGivenname("Petros");
-		author.setSurname("Markaris");
-		String authorId = authorsService.addAuthor(author);
-
-		Book book = new Book();
-		book.setName("Zahltag");
-		book.setIsbn("9783257242683");
-		book.setAuthors(Arrays.asList(authorsService.getAuthor(authorId)));
-		booksService.addBook(book);
+//		Author author = new Author();
+//		author.setGivenname("Petros");
+//		author.setSurname("Markaris");
+//		String authorId = authorsService.addAuthor(author);
+//
+//		Book book = new Book();
+//		book.setName("Zahltag");
+//		book.setIsbn("9783257242683");
+//		book.setAuthors(Arrays.asList(author));
+//		booksService.addBook(book);
 	}
 
 }

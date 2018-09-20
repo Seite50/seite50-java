@@ -9,6 +9,7 @@ import org.apache.meecrowave.jpa.api.PersistenceUnitInfoBuilder;
 import org.h2.Driver;
 
 import de.seite50.models.Author;
+import de.seite50.models.Book;
 
 @ApplicationScoped
 public class JpaConfig {
@@ -20,6 +21,7 @@ public class JpaConfig {
 				.setDataSource(ds)
 				.setExcludeUnlistedClasses(true)
 				.addManagedClazz(Author.class)
+				.addManagedClazz(Book.class)
 				.addProperty("openjpa.RuntimeUnenhancedClasses", "supported")
 				.addProperty("openjpa.jdbc.SynchronizeMappings", "buildSchema");
 	}
