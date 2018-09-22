@@ -20,8 +20,8 @@ public class Author {
 		return lastname;
 	}
 
-	public void setLastname(String surname) {
-		this.lastname = surname;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getFirstname() {
