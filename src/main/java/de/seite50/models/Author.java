@@ -1,6 +1,5 @@
 package de.seite50.models;
 
-import java.util.Collection;
 import java.util.UUID;
 
 import javax.enterprise.context.Dependent;
@@ -11,27 +10,32 @@ import javax.persistence.Id;
 @Dependent
 public class Author {
 
-	private String surname;
-	private String givenname;
+	private String lastname;
+	private String firstname;
 
 	@Id
 	private String id;
 
-	public String getSurname() {
-		return surname;
+	public String getLastname() {
+		return lastname;
 	}
-	public void setSurname(String surname) {
-		this.surname = surname;
+
+	public void setLastname(String surname) {
+		this.lastname = surname;
 	}
-	public String getGivenname() {
-		return givenname;
+
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setGivenname(String givenname) {
-		this.givenname = givenname;
+
+	public void setFirstname(String givenname) {
+		this.firstname = givenname;
 	}
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -43,6 +47,7 @@ public class Author {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -59,8 +64,8 @@ public class Author {
 			return false;
 		return true;
 	}
+
 	public Author() {
-		// nothing to do here, but to enable OpenJPA without bytecode enhancement
 		this.id = UUID.randomUUID().toString();
 	}
 }

@@ -50,7 +50,7 @@ public class AuthorsService {
 			return Collections.emptyList();
 		}
 		TypedQuery<Author> query = em.createQuery(
-				"select a from Author a where lower(a.givenname) like :term or lower(a.surname) like :term",
+				"select a from Author a where lower(a.firstname) like :term or lower(a.lastname) like :term",
 				Author.class);
 		query.setParameter("term", "%" + term.toLowerCase() + "%");
 		return query.getResultList();
