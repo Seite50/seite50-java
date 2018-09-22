@@ -1,42 +1,42 @@
 package de.seite50.rest;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
+import org.apache.meecrowave.jpa.api.Jpa;
+import org.apache.meecrowave.jpa.api.Unit;
 
 import de.seite50.models.User;
 
 @ApplicationScoped
 public class UsersService {
-	ConcurrentHashMap<String, User> users = new ConcurrentHashMap<>();
-	
+
+	@Inject
+	@Unit(name = "seite50")
+	EntityManager em;
+
 	public List<User> getUsers() {
-		return new ArrayList<>(users.values());
+		return em.createQuery("select u from User u", User.class).getResultList();
 	}
-	
+
+	@Jpa(transactional = true)
 	public String addUser(User user) {
-		users.put(user.getId(), user);
+		em.merge(user);
 		return user.getId();
 	}
-	
-	public boolean deleteUser(String id) {
-		if (users.containsKey(id)) {
-			users.remove(id);
-			return true;
-		}
 
-		return false;
+	@Jpa(transactional = true)
+	public boolean deleteUser(String id) {
+		User user = em.find(User.class, id);
+		em.remove(user);
+		return true;
 	}
-	
-	public String modifyUser(User user) {
-		if (users.containsKey(user.getId())){
-			users.put(user.getId(), user);
-			return user.getId();
-		}
-		
-		return null;
+
+	public User getUser(String id) {
+		return em.find(User.class, id);
 	}
+
 }
