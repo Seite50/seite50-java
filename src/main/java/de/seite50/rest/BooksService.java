@@ -2,7 +2,6 @@ package de.seite50.rest;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -50,7 +49,8 @@ public class BooksService {
 		if (term == null) {
 			return Collections.emptyList();
 		}
-		TypedQuery<Book> query = em.createQuery("select b from Book b where lower(b.name) like :term or lower(b.isbn) like :term", Book.class);
+		TypedQuery<Book> query = em.createQuery(
+				"select b from Book b where lower(b.name) like :term or lower(b.isbn) like :term", Book.class);
 		query.setParameter("term", "%" + term.toLowerCase() + "%");
 		return query.getResultList();
 	}
