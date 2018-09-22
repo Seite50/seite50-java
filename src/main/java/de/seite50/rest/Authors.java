@@ -22,30 +22,30 @@ import de.seite50.models.Author;
 @Path("authors")
 @ApplicationScoped
 public class Authors {
-	
+
 	@Inject
 	private AuthorsService service;
-	
+
 	@GET
-	@Produces({MediaType.APPLICATION_JSON})
+	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Author> listAuthors() {
 		return service.getAuthors();
 	}
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addAuthor(Author author, @Context UriInfo location) {
 		service.addAuthor(author);
 		return Response.created(location.getAbsolutePath()).build();
 	}
-	
+
 	@GET
 	@Path("{id}")
-	@Produces({MediaType.APPLICATION_JSON})
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Author getAuthor(@PathParam("id") String id) {
 		return service.getAuthor(id);
 	}
-	
+
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -53,7 +53,7 @@ public class Authors {
 		service.changeAuthor(author);
 		return Response.accepted().build();
 	}
-	
+
 	@DELETE
 	@Path("{id}")
 	public Response deleteAuthor(@PathParam("id") String id) {
