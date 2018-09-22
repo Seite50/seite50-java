@@ -23,10 +23,10 @@ import de.seite50.models.Book;
 @Path("books")
 @ApplicationScoped
 public class Books {
-	
+
 	@Inject
 	private Defaults defaults;
-	
+
 	@Inject
 	private BooksService booksService;
 
@@ -35,20 +35,20 @@ public class Books {
 	public String info() {
 		return defaults.getName();
 	}
-	
+
 	@GET
-	@Produces({MediaType.APPLICATION_JSON})
+	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Book> listBooks() {
 		return booksService.getBooks();
 	}
-	
+
 	@GET
 	@Path("{id}")
-	@Produces({MediaType.APPLICATION_JSON})
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Book getBook(@PathParam("id") String id) {
 		return booksService.getBook(id);
 	}
-	
+
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -56,19 +56,19 @@ public class Books {
 		booksService.setBook(book);
 		return Response.accepted().build();
 	}
-	
+
 	@DELETE
 	@Path("{id}")
 	public Response deleteBook(@PathParam("id") String id) {
 		booksService.deleteBook(id);
 		return Response.ok().build();
 	}
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addBook(Book book, @Context UriInfo uriInfo) {
 		String id = booksService.addBook(book);
-		return Response.created(uriInfo.getAbsolutePath()).build();
+		return Response.created(uriInfo.getBaseUriBuilder().build(id)).build();
 	}
-	
+
 }
