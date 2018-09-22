@@ -22,7 +22,7 @@ public class Book {
 	private String id;
 
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-	@OrderBy("surname, givenname")
+	@OrderBy("lastname, firstname")
 	private List<Author> authors;
 
 	private String isbn;
