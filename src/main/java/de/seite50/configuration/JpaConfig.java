@@ -10,6 +10,8 @@ import org.h2.Driver;
 
 import de.seite50.models.Author;
 import de.seite50.models.Book;
+import de.seite50.models.Library;
+import de.seite50.models.User;
 
 @ApplicationScoped
 public class JpaConfig {
@@ -22,6 +24,8 @@ public class JpaConfig {
 				.setExcludeUnlistedClasses(true)
 				.addManagedClazz(Author.class)
 				.addManagedClazz(Book.class)
+				.addManagedClazz(User.class)
+				.addManagedClazz(Library.class)
 				.addProperty("openjpa.RuntimeUnenhancedClasses", "supported")
 				.addProperty("openjpa.jdbc.SynchronizeMappings", "buildSchema");
 	}

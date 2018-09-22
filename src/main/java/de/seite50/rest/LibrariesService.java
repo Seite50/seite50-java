@@ -1,43 +1,48 @@
 package de.seite50.rest;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
-import de.seite50.models.Book;
+import org.apache.meecrowave.jpa.api.Jpa;
+import org.apache.meecrowave.jpa.api.Unit;
+
 import de.seite50.models.Library;
-import de.seite50.models.User;
 
-@ApplicationScoped
+@RequestScoped
 public class LibrariesService {
-	ConcurrentHashMap<String, LibraryResource> libraries = new ConcurrentHashMap<>();
-	
-	public List<String> getLibraries(){
-		return Collections.list(libraries.keys());
-	}
-	
-	public LibraryResource getLibrary(String id) {
-		return this.libraries.get(id);
+
+	@Inject
+	@Unit(name = "seite50")
+	EntityManager em;
+
+	@Inject
+	LibraryResource libResource;
+
+	public List<String> getLibraries() {
+		return em.createQuery("select l.id from Library l", String.class).getResultList();
 	}
 
-	
-	public void addLibrary(Library library) {
-		UUID id = UUID.randomUUID();
-		library.setId(id.toString());
-		this.libraries.put(library.getId(), new LibraryResource(library));
-	}
-	
-	public void setLibrary(Library library) {
-		LibraryResource libResource = this.libraries.get(library.getId());
+	public LibraryResource getLibrary(String id) {
+		Library library = em.find(Library.class, id);
 		libResource.setLibrary(library);
-		this.libraries.put(library.getId(), libResource);
+		return libResource;
 	}
-	
+
+	@Jpa(transactional = true)
+	public void addLibrary(Library library) {
+		em.merge(library);
+	}
+
+	@Jpa(transactional = true)
+	public void setLibrary(Library library) {
+		em.merge(library);
+	}
+
+	@Jpa(transactional = true)
 	public void removeLibrary(String libId) {
-		this.libraries.remove(libId);
+		em.remove(em.find(Library.class, libId));
 	}
 }

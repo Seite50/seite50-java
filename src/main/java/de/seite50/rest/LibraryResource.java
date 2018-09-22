@@ -2,6 +2,9 @@ package de.seite50.rest;
 
 import java.util.List;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,82 +17,95 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.apache.meecrowave.jpa.api.Unit;
+
 import de.seite50.models.Book;
 import de.seite50.models.Library;
 import de.seite50.models.User;
 
+@Dependent
 public class LibraryResource {
-	private Library library;
-	
-	public LibraryResource(Library lib) {
-		this.library = lib;
-	}
-	@GET
-	@Produces({MediaType.APPLICATION_JSON})
-	public Library getLibrary() {
-		return library;
-	}
+
+	@Inject
+	@Unit(name = "seite50")
+	EntityManager em;
+
+	@Inject
+	private LibraryService libService;
 
 	public void setLibrary(Library library) {
-		this.library = library;
+		this.libService.setLibrary(library);
+	}
+
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Library getLibrary() {
+		return libService.getLibrary();
 	}
 
 	@GET
 	@Path("books")
-	@Produces({MediaType.APPLICATION_JSON})
-	public List<Book> listBooks(){
-		System.out.println(library);
-		return library.getBooks();
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<Book> listBooks() {
+		return libService.getLibrary().getBooks();
 	}
+
 	@POST
 	@Path("books")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({ MediaType.APPLICATION_JSON })
 	public Response addBook(Book book, @Context UriInfo uriInfo) {
-		library.addBook(book);
+		libService.addBook(book);
 		return Response.created(uriInfo.getAbsolutePath()).build();
 	}
+
 	@DELETE
 	@Path("books/{bookId}")
 	public Response deleteBook(@PathParam("bookId") String bookId) {
-		library.removeBook(bookId);
+		libService.removeBook(bookId);
 		return Response.accepted().build();
 	}
+
 	@GET
 	@Path("librarians")
-	@Produces({MediaType.APPLICATION_JSON})
-	public List<User> listLibrarians(){
-		return library.getLibrarians();
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<User> listLibrarians() {
+		return libService.getLibrarians();
 	}
+
 	@POST
 	@Path("librarians")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({ MediaType.APPLICATION_JSON })
 	public Response addLibrarian(User librarian, @Context UriInfo uriInfo) {
-		library.addLibrarian(librarian);
+		libService.addLibrarian(librarian);
 		return Response.created(uriInfo.getAbsolutePath()).build();
 	}
+
 	@DELETE
 	@Path("librarians/{librariansId}")
 	public Response deleteLibrarian(@PathParam("librariansId") String librarianId) {
-		library.removeLibrarian(librarianId);
+		libService.removeLibrarian(librarianId);
 		return Response.accepted().build();
 	}
+
 	@GET
 	@Path("guests")
-	@Produces({MediaType.APPLICATION_JSON})
-	public List<User> listGuests(){
-		return library.getGuests();
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<User> listGuests() {
+		return libService.getGuests();
 	}
+
 	@POST
 	@Path("guests")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({ MediaType.APPLICATION_JSON })
 	public Response addGuest(User guest, @Context UriInfo uriInfo) {
-		library.addGuest(guest);
+		libService.addGuest(guest);
 		return Response.created(uriInfo.getAbsolutePath()).build();
 	}
+
 	@DELETE
 	@Path("guests/{guestsId}")
 	public Response deleteGuest(@PathParam("guestsId") String guestId) {
-		library.removeGuest(guestId);
+		libService.removeGuest(guestId);
 		return Response.accepted().build();
 	}
 }

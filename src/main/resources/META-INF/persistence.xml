@@ -4,8 +4,10 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="seite50" transaction-type="RESOURCE_LOCAL">
 		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
-		<class>de.seite50.models.Book</class>
 		<class>de.seite50.models.Author</class>
+		<class>de.seite50.models.Book</class>
+		<class>de.seite50.models.Library</class>
+		<class>de.seite50.models.User</class>
 		<properties>
 			<!-- property name="openjpa.ConnectionURL" value="jdbc:h2:tcp://localhost/~/var/h2db/test"/ -->
 			<!-- property name="openjpa.ConnectionDriverName" value="org.h2.Driver"/ -->
