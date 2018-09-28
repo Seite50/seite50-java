@@ -24,16 +24,16 @@ public class App extends Application {
 	@PostConstruct
 	public void startUp() {
 
-//		Author author = new Author();
-//		author.setGivenname("Petros");
-//		author.setSurname("Markaris");
+		Author author = new Author();
+		author.setFirstname("Petros");
+		author.setLastname("Markaris");
 //		String authorId = authorsService.addAuthor(author);
 //
-//		Book book = new Book();
-//		book.setName("Zahltag");
-//		book.setIsbn("9783257242683");
-//		book.setAuthors(Arrays.asList(author));
-//		booksService.addBook(book);
+		Book book = new Book();
+		book.setName("Zahltag");
+		book.setIsbn("9783257242683");
+		book.setAuthors(Arrays.asList(author));
+		booksService.addBook(book);
 	}
 
 }
