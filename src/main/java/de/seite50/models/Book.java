@@ -6,9 +6,8 @@ import java.util.UUID;
 import javax.enterprise.context.Dependent;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OrderBy;
 
@@ -21,7 +20,7 @@ public class Book {
 	@Id
 	private String id;
 
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	@OrderBy("lastname, firstname")
 	private List<Author> authors;
 
