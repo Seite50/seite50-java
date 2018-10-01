@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotAcceptableException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -50,8 +51,12 @@ public class Authors {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response changeAuthor(@PathParam("id") String id, Author author) {
-		service.changeAuthor(author);
-		return Response.accepted().build();
+		if (author.getId() == null || author.getId().equals(id)) {
+			author.setId(id);
+			service.changeAuthor(author);
+			return Response.accepted().build();
+		}
+		throw new NotAcceptableException("id doesn't match content");
 	}
 
 	@DELETE
