@@ -27,7 +27,7 @@ public class App extends Application {
 		Author author = new Author();
 		author.setFirstname("Petros");
 		author.setLastname("Markaris");
-//		String authorId = authorsService.addAuthor(author);
+		String authorId = authorsService.addAuthor(author);
 //
 		Book book = new Book();
 		book.setName("Zahltag");
