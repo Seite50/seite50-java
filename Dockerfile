@@ -11,7 +11,6 @@ FROM openjdk:8
 
 WORKDIR /server
 COPY --from=builder /dist/rest-api-distribution/ /server/
-RUN find /server
 CMD [ "sh", "/server/bin/meecrowave.sh", "run"]
 
 EXPOSE 8080
