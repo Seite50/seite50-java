@@ -12,7 +12,7 @@ import de.seite50.models.Author;
 import de.seite50.models.Book;
 
 @Dependent
-@ApplicationPath("api")
+@ApplicationPath("/")
 public class App extends Application {
 
 	@Inject
